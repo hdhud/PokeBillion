@@ -1,6 +1,9 @@
 package com.david.pokebillion
 
-class Carte (var id: Int, var nom: String, var Rarete: String,var nb_carte: Int, var Trouver: Boolean){
+import java.io.File
+import java.io.FileOutputStream
+
+class Carte (var id: Int, var nom: String, var Rarete: Int,var nb_carte: Int, var Trouver: Boolean){
 
     override fun toString(): String {
         return "Carte(id=$id, nom='$nom', Rarete='$Rarete', nb_crate=$nb_carte, Trouver=$Trouver)"
@@ -19,5 +22,16 @@ class Carte (var id: Int, var nom: String, var Rarete: String,var nb_carte: Int,
     fun vendre(nb:Int) {
         nb_carte -= nb
     }
+    fun sauvegarderDonnees(donnees: String, nomFichier: String) {
+        val fichier = File(nomFichier)
+        FileOutputStream(fichier).use {
+            it.write(donnees.toByteArray())
+        }
+    }
+    fun chargerDonnees(nomFichier: String): String {
+        val fichier = File(nomFichier)
+        return String(fichier.readBytes())
+    }
+
 
 }
