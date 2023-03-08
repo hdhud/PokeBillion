@@ -22,16 +22,5 @@ class Carte (var id: Int, var nom: String, var Rarete: Int,var nb_carte: Int, va
     fun vendre(nb:Int) {
         nb_carte -= nb
     }
-    fun sauvegarderDonnees(donnees: String, nomFichier: String) {
-        val fichier = File(nomFichier)
-        FileOutputStream(fichier).use {
-            it.write(donnees.toByteArray())
-        }
-    }
-    fun chargerDonnees(nomFichier: String): String {
-        val fichier = File(nomFichier)
-        return String(fichier.readBytes())
-    }
-
 
 }

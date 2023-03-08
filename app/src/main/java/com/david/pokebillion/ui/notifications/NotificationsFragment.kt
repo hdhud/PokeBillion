@@ -16,7 +16,6 @@ import com.david.pokebillion.databinding.FragmentNotificationsBinding
 class NotificationsFragment : Fragment() {
 
     private var _binding: FragmentNotificationsBinding? = null
-
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -31,12 +30,6 @@ class NotificationsFragment : Fragment() {
 
         _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
-        //create a list of 102 Carte of set-de-base pokemon
-
-
-
-
 
 
         val carteArray = arrayListOf<Carte>(
