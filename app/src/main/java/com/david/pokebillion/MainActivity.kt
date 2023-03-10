@@ -29,59 +29,37 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        val rootView = findViewById<View>(android.R.id.content)
-        rootView.setOnTouchListener { _, event ->
-            val random = randomINT(0,1000000000)
-            //System.out.println("Random : $random")
 
-            val modulos = listOf(250, 500, 1000, 2000, 5000, 10000, 25000, 50000, 75000, 100000, 250000, 500000, 1000000, 5000000, 10000000, 100000000, 1000000000)
-            var trouver = false
-            var modulo = 0
-            for (m in modulos) {
-                if (random % m == 0) {
-                    trouver = true
-                    modulo = m
-                }
-            }
-            if (trouver) {
-                System.out.println("Random : $random")
-                System.out.println("Modulo : $modulo")
-            }
-
-
-
-            return@setOnTouchListener false
-        }
 
 
         val carteList = arrayListOf<Carte>(
-            Carte(1, "Alakazam", 100000000, 1000, false),
+            Carte(1, "Alakazam", 100000000, 1, false),
             Carte(2, "Tortank", 1000000000, 0, false),
             Carte(3, "Leveinard", 100000000, 0, false),
             Carte(4, "Dracaufeu", 1000000000, 0, false),
             Carte(5, "Mélofée", 10000000, 0, false),
-            Carte(6, "Léviator", 10000000, 0, false),
+            Carte(6, "Léviator", 100000000, 0, false),
             Carte(7, "Tygnon", 10000000, 0, false),
             Carte(8, "Mackogneur", 100000000, 0, false),
             Carte(9, "Magneton", 10000000, 0, false),
-            Carte(10, "Mewtwo", 10000000, 0, false),
+            Carte(10, "Mewtwo", 100000000, 0, false),
             Carte(11, "Nidoking", 10000000, 0, false),
-            Carte(12, "Feunard", 10000000, 0, false),
+            Carte(12, "Feunard", 100000000, 0, false),
             Carte(13, "Tartard", 10000000, 0, false),
             Carte(14, "Raichu", 10000000, 0, false),
             Carte(15, "Florizarre", 1000000000, 0, false),
-            Carte(16, "Électhor", 10000000, 0, false),
-            Carte(17, "Dardargnan", 10000000, 0, false),
-            Carte(18, "Draco", 10000000, 0, false),
+            Carte(16, "Électhor", 100000000, 0, false),
+            Carte(17, "Dardargnan", 250000, 0, false),
+            Carte(18, "Draco", 5000000, 0, false),
             Carte(19, "Triopikeur", 50000, 0, false),
-            Carte(20, "Élektek", 10000000, 0, false),
-            Carte(21, "Électrode", 10000000, 0, false),
+            Carte(20, "Élektek", 1000000, 0, false),
+            Carte(21, "Électrode", 75000, 0, false),
             Carte(22, "Roucoups", 500000, 0, false),
             Carte(23, "Arcanin", 500000, 0, false),
             Carte(24, "Reptincel", 5000000, 0, false),
             Carte(25, "Lamantine", 250000, 0, false),
             Carte(26, "Minidraco", 100000, 0, false),
-            Carte(27, "Canarticho", 25000, 0, false),
+            Carte(27, "Canarticho", 50000, 0, false),
             Carte(28, "Caninos", 75000, 0, false),
             Carte(29, "Spectrum", 500000, 0, false),
             Carte(30, "Herbizarre", 250000, 0, false),
@@ -96,27 +74,27 @@ class MainActivity : AppCompatActivity() {
             Carte(39, "Porygon", 25000, 0, false),
             Carte(40, "Rattatac", 50000, 0, false),
             Carte(41, "Otaria", 75000, 0, false),
-            Carte(42, "Carabaffe", 250000, 0, false),
+            Carte(42, "Carabaffe", 5000000, 0, false),
             Carte(43, "Abra", 100000, 0, false),
-            Carte(44, "Bulbizarre", 250000, 0, false),
+            Carte(44, "Bulbizarre", 5000000, 0, false),
             Carte(45, "Chenipan", 10000, 0, false),
-            Carte(46, "Salamèche", 500000, 0, false),
+            Carte(46, "Salamèche", 250000, 0, false),
             Carte(47, "Taupiqueur", 10000, 0, false),
             Carte(48, "Doduo", 10000, 0, false),
-            Carte(49, "Soporifik", 50000, 0, false),
+            Carte(49, "Soporifik", 500000, 0, false),
             Carte(50, "Fantominus", 25000, 0, false),
             Carte(51, "Smogo", 100000, 0, false),
             Carte(52, "Machoc", 75000, 0, false),
-            Carte(53, "Magneti", 75000, 0, false),
+            Carte(53, "Magneti", 50000, 0, false),
             Carte(54, "Chrysacier", 50000, 0, false),
             Carte(55, "Nidoran ♂", 100000, 0, false),
             Carte(56, "Onix", 1000000, 0, false),
             Carte(57, "Roucool", 25000, 0, false),
-            Carte(58, "Pikachu", 500000, 0, false),
+            Carte(58, "Pikachu", 5000000, 0, false),
             Carte(59, "Ptitard", 25000, 0, false),
             Carte(60, "Ponyta", 75000, 0, false),
-            Carte(61, "Rattata", 25000, 0, false),
-            Carte(62, "Sabelette", 50000, 0, false),
+            Carte(61, "Rattata", 10000, 0, false),
+            Carte(62, "Sabelette", 500000, 0, false),
             Carte(63, "Carapuce", 250000, 0, false),
             Carte(64, "Staross", 250000, 0, false),
             Carte(65, "Stari", 25000, 0, false),
@@ -157,7 +135,7 @@ class MainActivity : AppCompatActivity() {
             Carte(100, "Énergie Électrique", 250, 0, false),
             Carte(101, "Énergie Psy", 250, 0, false),
             Carte(102, "Énergie Eau", 250, 0, false))
-        saveData(carteList.toString())
+        //saveData(carteList.toString())
 
 
         val carteArray = loadData()
@@ -173,14 +151,8 @@ class MainActivity : AppCompatActivity() {
             carteList.add(Carte(carteArray4, carteArray5, carteArray6, carteArray7, carteArray8))
         }
 
-
-
-
-
     }
-    fun randomINT(min: Int, max: Int): Int {
-        return (Math.random() * (max - min + 1) + min).toInt()
-    }
+
     fun saveData(data: String) {
         val fileOutputStream: FileOutputStream
         try {

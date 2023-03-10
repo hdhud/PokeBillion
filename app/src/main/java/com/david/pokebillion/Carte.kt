@@ -22,5 +22,15 @@ class Carte (var id: Int, var nom: String, var Rarete: Int,var nb_carte: Int, va
     fun vendre(nb:Int) {
         nb_carte -= nb
     }
+    fun ajouter(nb:Int) {
+        nb_carte += nb
+    }
+    fun ajouter() {
+        nb_carte += 1
+    }
+
+
+    
+
 
 }
