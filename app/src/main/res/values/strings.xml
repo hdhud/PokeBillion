@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">PokeBillion</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_clique">Clique</string>
+    <string name="title_jeux">Jeux</string>
+    <string name="title_carte">Mes Cartes</string>
+    <Integer name="nbCartes">10</Integer>
 </resources>

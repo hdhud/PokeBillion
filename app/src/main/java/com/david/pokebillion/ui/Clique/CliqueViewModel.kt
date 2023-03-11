@@ -1,13 +1,13 @@
-package com.david.pokebillion.ui.home
+package com.david.pokebillion.ui.Clique
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class HomeViewModel : ViewModel() {
+class CliqueViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
+        value = "C'est ici que tu pourras cliquer pour collectionner des cartes"
     }
     val text: LiveData<String> = _text
 }

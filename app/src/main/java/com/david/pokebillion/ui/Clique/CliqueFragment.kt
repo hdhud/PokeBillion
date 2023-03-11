@@ -1,4 +1,4 @@
-package com.david.pokebillion.ui.home
+package com.david.pokebillion.ui.Clique
 
 import android.content.Context
 import android.os.Bundle
@@ -6,16 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.david.pokebillion.Carte
-import com.david.pokebillion.databinding.FragmentHomeBinding
+import com.david.pokebillion.databinding.FragmentCliqueBinding
 import java.io.*
 
 
-class HomeFragment : Fragment() {
+class CliqueFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
+    private var _binding: FragmentCliqueBinding? = null
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val carteList: ArrayList<Carte> = ArrayList()
@@ -26,21 +27,24 @@ class HomeFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View {
+        var click =0
         val homeViewModel =
-                ViewModelProvider(this).get(HomeViewModel::class.java)
+                ViewModelProvider(this).get(CliqueViewModel::class.java)
 
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentCliqueBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         val textView: TextView = binding.textHome
         homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+            textView.text = click.toString()
         }
 
         carteList.removeAll(carteList)
         loadData()
 
         root.setOnClickListener {
+            click++
+            textView.text = click.toString()
             val random = randomINT(0, 1000000000)
             //System.out.println("Random : $random")
             val modulos = listOf(
@@ -91,7 +95,15 @@ class HomeFragment : Fragment() {
             }
         }
         val random = randomINT(0, nbmodulo-1)
-        println(carterarete[random].id)
+        println("${carterarete[random].id} Rareté : $modulo")
+        Toast.makeText(requireContext(), "${carterarete[random].nom} Rareté : $modulo", Toast.LENGTH_SHORT).show()
+        /*AlertDialog.Builder(requireContext())
+            .setTitle("Carte")
+            .setMessage("${carterarete[random].nom} Rareté : $modulo")
+            .setPositiveButton("OK") { dialog, which ->
+                // Respond to positive button press
+            }
+            .show()*/
         carteList[carterarete[random].id-1].nb_carte++
     }
     fun loadData() {
@@ -100,22 +112,25 @@ class HomeFragment : Fragment() {
         val bufferedReader = BufferedReader(inputStreamReader)
         var line = bufferedReader.readLine()
         while (line != null) {
+
             val carteArray2 = line.split("Carte(")
             for (i in 1..carteArray2.size - 1) {
                 val carteArray3 = carteArray2[i].split(", ")
                 val carteArray4 = carteArray3[0].split("=")[1].toInt()
                 val carteArray5 = carteArray3[1].split("'")[1]
-                val carteArray6 = carteArray3[2].split("'")[1].toInt()
+                val carteArray6 = carteArray3[2].split("=")[1].toInt()
                 val carteArray7 = carteArray3[3].split("=")[1].toInt()
                 val carteArray8 = carteArray3[4].split("=")[1].toBoolean()
-                //System.out.println("Carte : $carteArray4, $carteArray5, $carteArray6, $carteArray7, $carteArray8")
+                val carteArray9 = carteArray3[3].split("=")[1].toInt()
+                System.out.println("Carte : $carteArray4, $carteArray5, $carteArray6, $carteArray7, $carteArray8, $carteArray9")
                 carteList.add(
                     Carte(
                         carteArray4,
                         carteArray5,
                         carteArray6,
                         carteArray7,
-                        carteArray8
+                        carteArray8,
+                        carteArray9
                     )
                 )
             }
@@ -133,6 +148,7 @@ class HomeFragment : Fragment() {
             }*/
             fileOutputStream.write(carteList.toString().toByteArray())
             fileOutputStream.close()
+            println("Save data")
         } catch (e: Exception) {
             e.printStackTrace()
         }
