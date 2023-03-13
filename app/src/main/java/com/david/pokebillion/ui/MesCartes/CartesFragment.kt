@@ -23,13 +23,14 @@ class CartesFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private val carteList: ArrayList<Carte> = ArrayList()
+    private var carteList: List<Carte> = ArrayList()
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View {
+        println(context?.filesDir?.absolutePath)
 
         val notificationsViewModel =
                 ViewModelProvider(this).get(CartesViewModel::class.java)
@@ -37,11 +38,9 @@ class CartesFragment : Fragment() {
         _binding = FragmentCartesBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        //why the data i load is
-        carteList.removeAll(carteList)
         val handler = Handler()
         handler.postDelayed({
-            loadData()
+            carteList= Carte.getAllCartes()
             binding.cartelist.adapter = CarteListAdapter(requireContext(),carteList)
 
             (binding.cartelist.adapter as CarteListAdapter).notifyDataSetChanged()
@@ -61,30 +60,7 @@ class CartesFragment : Fragment() {
         }
         return root
     }
-    fun loadData(){
-        val fileInputStream: FileInputStream = requireContext().openFileInput("data.txt")
-        val inputStreamReader = InputStreamReader(fileInputStream)
-        val bufferedReader = BufferedReader(inputStreamReader)
-        var line = bufferedReader.readLine()
-        println("Loaded data")
-        while (line != null) {
-            val carteArray2 = line.split("Carte(")
-            for (i in 1..carteArray2.size-1) {
-                val carteArray3 = carteArray2[i].split(", ")
-                val carteArray4 = carteArray3[0].split("=")[1].toInt()
-                val carteArray5 = carteArray3[1].split("'")[1]
-                val carteArray6 = carteArray3[2].split("=")[1].toInt()
-                val carteArray7 = carteArray3[3].split("=")[1].toInt()
-                val carteArray8 = carteArray3[4].split("=")[1].toBoolean()
-                val carteArray9 = carteArray3[3].split("=")[1].toInt()
-                //System.out.println("Carte : $carteArray4, $carteArray5, $carteArray6, $carteArray7, $carteArray8, $carteArray9")
-                carteList.add(Carte(carteArray4, carteArray5, carteArray6, carteArray7, carteArray8, carteArray9))
-            }
-            line = bufferedReader.readLine()
-        }
-        fileInputStream.close()
-        println("Loaded data")
-    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -19,7 +19,7 @@ class CliqueFragment : Fragment() {
     private var _binding: FragmentCliqueBinding? = null
     // This property is only valid between onCreateView and
     // onDestroyView.
-    private val carteList: ArrayList<Carte> = ArrayList()
+    private var carteList: List<Carte> = ArrayList()
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -39,8 +39,8 @@ class CliqueFragment : Fragment() {
             textView.text = click.toString()
         }
 
-        carteList.removeAll(carteList)
-        loadData()
+        carteList = Carte.getAllCartes()
+
 
         root.setOnClickListener {
             click++
@@ -97,67 +97,18 @@ class CliqueFragment : Fragment() {
         val random = randomINT(0, nbmodulo-1)
         println("${carterarete[random].id} Rareté : $modulo")
         Toast.makeText(requireContext(), "${carterarete[random].nom} Rareté : $modulo", Toast.LENGTH_SHORT).show()
-        /*AlertDialog.Builder(requireContext())
-            .setTitle("Carte")
-            .setMessage("${carterarete[random].nom} Rareté : $modulo")
-            .setPositiveButton("OK") { dialog, which ->
-                // Respond to positive button press
-            }
-            .show()*/
-        carteList[carterarete[random].id-1].nb_carte++
-    }
-    fun loadData() {
-        val fileInputStream: FileInputStream = requireContext().openFileInput("data.txt")
-        val inputStreamReader = InputStreamReader(fileInputStream)
-        val bufferedReader = BufferedReader(inputStreamReader)
-        var line = bufferedReader.readLine()
-        while (line != null) {
 
-            val carteArray2 = line.split("Carte(")
-            for (i in 1..carteArray2.size - 1) {
-                val carteArray3 = carteArray2[i].split(", ")
-                val carteArray4 = carteArray3[0].split("=")[1].toInt()
-                val carteArray5 = carteArray3[1].split("'")[1]
-                val carteArray6 = carteArray3[2].split("=")[1].toInt()
-                val carteArray7 = carteArray3[3].split("=")[1].toInt()
-                val carteArray8 = carteArray3[4].split("=")[1].toBoolean()
-                val carteArray9 = carteArray3[3].split("=")[1].toInt()
-                System.out.println("Carte : $carteArray4, $carteArray5, $carteArray6, $carteArray7, $carteArray8, $carteArray9")
-                carteList.add(
-                    Carte(
-                        carteArray4,
-                        carteArray5,
-                        carteArray6,
-                        carteArray7,
-                        carteArray8,
-                        carteArray9
-                    )
-                )
-            }
-            line = bufferedReader.readLine()
-        }
-        fileInputStream.close()
-        println("Load data")
+        carteList[carterarete[random].id-1].nb_carte++
+        carteList[carterarete[random].id-1].nb_Total++
+
+        //println(carteList[carterarete[random].id-1])
     }
-    fun saveData() {
-        val fileOutputStream: FileOutputStream
-        try {
-            fileOutputStream = requireContext().openFileOutput("data.txt", Context.MODE_PRIVATE)
-            /*for (carte in carteList) {
-                println(carte)
-            }*/
-            fileOutputStream.write(carteList.toString().toByteArray())
-            fileOutputStream.close()
-            println("Save data")
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
+
 
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        saveData()
+        Carte.saveData(carteList)
     }
 }

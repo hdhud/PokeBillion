@@ -3,5 +3,4 @@
     <string name="title_clique">Clique</string>
     <string name="title_jeux">Jeux</string>
     <string name="title_carte">Mes Cartes</string>
-    <Integer name="nbCartes">10</Integer>
 </resources>

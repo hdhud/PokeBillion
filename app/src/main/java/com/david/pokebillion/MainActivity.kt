@@ -32,7 +32,8 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        val carteList = arrayListOf<Carte>(
+        val carteList = listOf<Carte>(
+
             Carte(1, "Alakazam", 100000000, 1, false,0),
             Carte(2, "Tortank", 1000000000, 0, false,0),
             Carte(3, "Leveinard", 100000000, 0, false,0),
@@ -134,11 +135,13 @@ class MainActivity : AppCompatActivity() {
             Carte(99, "Énergie Plante", 250, 0, false,0),
             Carte(100, "Énergie Électrique", 250, 0, false,0),
             Carte(101, "Énergie Psy", 250, 0, false,0),
-            Carte(102, "Énergie Eau", 250, 0, false,0))
+            Carte(102, "Énergie Eau", 250, 0, false,0)
+            )
         //saveData(carteList.toString())
+        Carte.saveData(carteList)
 
 
-        val carteArray = loadData()
+        /*val carteArray = loadData()
         val carteArray2 = carteArray.split("Carte(")
         for (i in 1..carteArray2.size-1) {
             val carteArray3 = carteArray2[i].split(", ")
@@ -150,11 +153,12 @@ class MainActivity : AppCompatActivity() {
             val carteArray9 = carteArray3[3].split("=")[1].toInt()
 
             carteList.add(Carte(carteArray4, carteArray5, carteArray6, carteArray7, carteArray8, carteArray9))
-        }
+        }*/
 
     }
 
     fun saveData(data: String) {
+        println("saveData")
         val fileOutputStream: FileOutputStream
         try {
             fileOutputStream = openFileOutput("data.txt", Context.MODE_PRIVATE)

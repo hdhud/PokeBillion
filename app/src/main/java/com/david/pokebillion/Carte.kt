@@ -1,8 +1,7 @@
 package com.david.pokebillion
 
-import java.io.File
-import java.io.FileOutputStream
-import java.io.Serializable
+import androidx.core.content.ContentProviderCompat.requireContext
+import java.io.*
 
 class Carte (var id: Int, var nom: String, var Rarete: Int,var nb_carte: Int, var Trouver: Boolean, var nb_Total: Int):
     Serializable {
@@ -31,8 +30,33 @@ class Carte (var id: Int, var nom: String, var Rarete: Int,var nb_carte: Int, va
         nb_carte += 1
     }
 
+    companion object{
 
-    
+        fun getAllCartes(): List<Carte> {
+            println("Loading")
+
+            val fileInputStream: FileInputStream
+            val carteList = mutableListOf<Carte>()
+            fileInputStream = FileInputStream("/data/user/0/com.david.pokebillion/files/data.txt")
+            val inputStream = ObjectInputStream(fileInputStream)
+            val savedCartes = inputStream.readObject() as List<Carte>
+            //println("Load :${savedCartes}")
+            inputStream.close()
+
+            carteList.addAll(savedCartes)
+
+            println("Loading")
+            return carteList
+        }
+
+        fun saveData(carteList: List<Carte>) {
+            val file = File("/data/user/0/com.david.pokebillion/files/data.txt")
+            val outputStream = ObjectOutputStream(FileOutputStream(file))
+            outputStream.writeObject(carteList)
+            outputStream.close()
+            println("Saving")
+        }
+    }
 
 
 }
