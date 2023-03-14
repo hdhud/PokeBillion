@@ -10,9 +10,7 @@ class Carte (var id: Int, var nom: String, var Rarete: Int,var nb_carte: Int, va
         return "Carte(id=$id, nom='$nom', Rarete=$Rarete, nb_carte=$nb_carte, Trouver=$Trouver, nb_Total=$nb_Total)"
     }
 
-    fun marquerTrouve() {
-        Trouver = true
-    }
+
     fun vendretous(){
         nb_carte = 0
         Trouver = false
@@ -23,17 +21,10 @@ class Carte (var id: Int, var nom: String, var Rarete: Int,var nb_carte: Int, va
     fun vendre(nb:Int) {
         nb_carte -= nb
     }
-    fun ajouter(nb:Int) {
-        nb_carte += nb
-    }
-    fun ajouter() {
-        nb_carte += 1
-    }
 
     companion object{
 
         fun getAllCartes(): List<Carte> {
-            println("Loading")
 
             val fileInputStream: FileInputStream
             val carteList = mutableListOf<Carte>()
