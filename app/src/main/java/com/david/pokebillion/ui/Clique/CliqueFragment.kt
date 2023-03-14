@@ -39,7 +39,7 @@ class CliqueFragment : Fragment() {
             textView.text = click.toString()
         }
 
-        carteList = Carte.getAllCartes()
+        //carteList = Carte.getAllCartes()
 
 
         root.setOnClickListener {
