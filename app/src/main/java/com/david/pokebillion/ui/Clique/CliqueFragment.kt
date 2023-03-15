@@ -40,7 +40,11 @@ class CliqueFragment : Fragment() {
             textView.text = click.toString()
         }
 
+<<<<<<< HEAD
         carteList = profil.getcarteList()
+=======
+        carteList = Carte.getAllCartes()
+>>>>>>> 6aab91e2c47c5dfc481e46644440f72f83bec541
 
 
         root.setOnClickListener {

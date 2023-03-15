@@ -139,6 +139,7 @@ class MainActivity : AppCompatActivity() {
                 Carte(101, "Énergie Psy", 250, 0, false,0),
                 Carte(102, "Énergie Eau", 250, 0, false,0)
             )
+<<<<<<< HEAD
             println("createfile")
             println("createfile")
             println("createfile")
@@ -158,6 +159,12 @@ class MainActivity : AppCompatActivity() {
             println("createfile")
             Carte.saveData(carteList)
         }
+=======
+        //saveData(carteList.toString())
+        //loadData()
+        //Carte.saveData(carteList)
+
+>>>>>>> 6aab91e2c47c5dfc481e46644440f72f83bec541
 
         /*val carteArray = loadData()
         val carteArray2 = carteArray.split("Carte(")
@@ -195,6 +202,7 @@ class MainActivity : AppCompatActivity() {
             val stringBuilder = StringBuilder()
             var text: String? = null
             while ({ text = bufferedReader.readLine(); text }() != null) {
+                println(text)
                 stringBuilder.append(text)
             }
             return stringBuilder.toString()
