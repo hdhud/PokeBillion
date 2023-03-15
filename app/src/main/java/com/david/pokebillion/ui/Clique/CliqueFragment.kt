@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.david.pokebillion.Carte
 import com.david.pokebillion.databinding.FragmentCliqueBinding
+import com.david.pokebillion.profil
 import java.io.*
 
 
@@ -39,10 +40,13 @@ class CliqueFragment : Fragment() {
             textView.text = click.toString()
         }
 
-        //carteList = Carte.getAllCartes()
+        carteList = profil.getcarteList()
 
 
         root.setOnClickListener {
+            profil.argent += 1
+            profil.clickjour += 1
+            profil.clicktotal += 1
             click++
             textView.text = click.toString()
             val random = randomINT(0, 1000000000)
@@ -109,6 +113,8 @@ class CliqueFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        Carte.saveData(carteList)
+        if (carteList.isNotEmpty()) {
+            Carte.saveData(carteList)
+        }
     }
 }

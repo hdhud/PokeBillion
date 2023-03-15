@@ -12,6 +12,7 @@ import com.david.pokebillion.Carte
 import com.david.pokebillion.CarteActivity
 import com.david.pokebillion.CarteListAdapter
 import com.david.pokebillion.databinding.FragmentCartesBinding
+import com.david.pokebillion.profil
 import java.io.BufferedReader
 import java.io.FileInputStream
 import java.io.InputStreamReader
@@ -31,7 +32,7 @@ class CartesFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View {
         println(context?.filesDir?.absolutePath)
-
+        carteList = profil.getcarteList()
         val notificationsViewModel =
                 ViewModelProvider(this).get(CartesViewModel::class.java)
 
@@ -40,7 +41,7 @@ class CartesFragment : Fragment() {
 
         val handler = Handler()
         handler.postDelayed({
-            carteList= Carte.getAllCartes()
+            carteList = profil.getcarteList()
             binding.cartelist.adapter = CarteListAdapter(requireContext(),carteList)
 
             (binding.cartelist.adapter as CarteListAdapter).notifyDataSetChanged()

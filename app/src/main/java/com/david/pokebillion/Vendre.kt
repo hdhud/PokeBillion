@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.SeekBar
 import androidx.appcompat.app.AlertDialog
+import com.david.pokebillion.ui.MesCartes.CartesFragment
 
 class Vendre : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,8 +53,10 @@ class Vendre : AppCompatActivity() {
                 .setMessage("Voulez-vous vraiment vendre ${vendre.progress} ${carte.nom} pour ${vendre.progress*carte.Rarete} pièce?")
                 .setPositiveButton("Oui") { dialog, which ->
                     carte.nb_carte = carte.nb_carte - vendre.progress
-                    val intent = Intent(this, CarteActivity::class.java)
-                    intent.putExtra("carte", carte)
+                    val intent = Intent(this, MainActivity::class.java)
+                    profil.argent = profil.argent + (vendre.progress*carte.Rarete)
+                    println(profil.argent)
+                    profil.setcarteList(carte)
                     startActivity(intent)
                 }
                 .setNegativeButton("Non") { dialog, which ->

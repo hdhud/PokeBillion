@@ -4,6 +4,7 @@ object profil {
     var argent = 0
     var clickjour = 0
     var clicktotal = 0
+    var carteList: List<Carte> = Carte.getAllCartes().toMutableList()
 
     fun addargent(nb: Int) {
         argent += nb
@@ -25,5 +26,18 @@ object profil {
     }
     fun getclicktotal(): Int {
         return clicktotal
+    }
+    fun getcarteList(): List<Carte> {
+        return carteList
+    }
+    //creer une fonction qui permet de modifier la liste de carte avec une carte en parametre
+    fun setcarteList(carte: Carte) {
+        carteList.listIterator().forEach {
+            if (it.id == carte.id) {
+                it.nb_carte = carte.nb_carte
+                it.nb_Total = carte.nb_Total
+                it.Trouver = carte.Trouver
+            }
+        }
     }
 }
