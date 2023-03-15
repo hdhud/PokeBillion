@@ -138,6 +138,7 @@ class MainActivity : AppCompatActivity() {
             Carte(102, "Énergie Eau", 250, 0, false,0)
             )
         //saveData(carteList.toString())
+        //loadData()
         //Carte.saveData(carteList)
 
 
@@ -177,6 +178,7 @@ class MainActivity : AppCompatActivity() {
             val stringBuilder = StringBuilder()
             var text: String? = null
             while ({ text = bufferedReader.readLine(); text }() != null) {
+                println(text)
                 stringBuilder.append(text)
             }
             return stringBuilder.toString()
