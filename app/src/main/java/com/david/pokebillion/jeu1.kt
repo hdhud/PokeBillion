@@ -58,12 +58,7 @@ class jeu1 : AppCompatActivity() {
         Toast.makeText(this, carte.nom, Toast.LENGTH_SHORT).show()
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_jeu1)
-<<<<<<< HEAD
-        ObtenirCarte(10000000)
-    }
+
     fun ObtenirCarte(nombredeclique:Int){
 
         var maxrarete=0
@@ -98,10 +93,11 @@ class jeu1 : AppCompatActivity() {
         }
         println(maxrarete)
     }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_jeu1)
+        ObtenirCarte(10000000)
 
-    fun randomINT(min: Int, max: Int): Int {
-        return (Math.random() * (max - min + 1) + min).toInt()
-=======
 
         // Récupérer l'argent disponible dans le singleton Profil
         //val argentDisponible = profil.argent
@@ -154,6 +150,5 @@ class jeu1 : AppCompatActivity() {
             // Afficher la carte obtenue
             //afficherCarte(carte)
         }
->>>>>>> 6aab91e2c47c5dfc481e46644440f72f83bec541
     }
 }
