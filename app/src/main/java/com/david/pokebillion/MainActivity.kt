@@ -138,7 +138,7 @@ class MainActivity : AppCompatActivity() {
             Carte(102, "Énergie Eau", 250, 0, false,0)
             )
         //saveData(carteList.toString())
-        Carte.saveData(carteList)
+        //Carte.saveData(carteList)
 
 
         /*val carteArray = loadData()

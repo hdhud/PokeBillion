@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContentProviderCompat.requireContext
 
 class CarteActivity : AppCompatActivity() {
@@ -23,13 +24,15 @@ class CarteActivity : AppCompatActivity() {
         nbtotalcarte.text = " ${carte.nb_Total}"
         val vendre = findViewById<TextView>(R.id.Vendre)
         vendre.setOnClickListener {
-            carte.vendre(1)
-            nbcarte.text = " ${carte.nb_carte}"
-            nbtotalcarte.text = " ${carte.nb_Total}"
-            val intent = Intent(this, Vendre::class.java)
+            if (carte.nb_carte > 0) {
+                val intent = Intent(this, Vendre::class.java)
 
-            intent.putExtra("carte", carte)
-            startActivity(intent)
+                intent.putExtra("carte", carte)
+                startActivity(intent)
+            }else{
+                Toast.makeText(this, "Vous ne possédez pas cette carte", Toast.LENGTH_SHORT).show()
+            }
+
         }
     }
 }
