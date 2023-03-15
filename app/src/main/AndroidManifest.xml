@@ -12,6 +12,12 @@
         android:theme="@style/Theme.PokeBillion"
         tools:targetApi="31">
         <activity
+            android:name=".jeu2"
+            android:exported="false" />
+        <activity
+            android:name=".jeu1"
+            android:exported="false" />
+        <activity
             android:name=".Vendre"
             android:exported="false" />
         <activity

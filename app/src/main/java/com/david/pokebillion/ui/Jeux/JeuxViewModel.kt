@@ -9,5 +9,6 @@ class JeuxViewModel : ViewModel() {
     private val _text = MutableLiveData<String>().apply {
         value = "C'est ici que tu pourra jouer à des jeux"
     }
+
     val text: LiveData<String> = _text
 }
