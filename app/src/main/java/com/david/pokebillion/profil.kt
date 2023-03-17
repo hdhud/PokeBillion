@@ -1,6 +1,9 @@
 package com.david.pokebillion
 
+import android.content.Context
+
 object profil {
+
     var argent = 0
     var clickjour = 0
     var clicktotal = 0
@@ -26,6 +29,9 @@ object profil {
     }
     fun getclicktotal(): Int {
         return clicktotal
+    }
+    fun saveprofil() {
+        Carte.saveData(carteList)
     }
     fun getcarteList(): List<Carte> {
         return carteList
