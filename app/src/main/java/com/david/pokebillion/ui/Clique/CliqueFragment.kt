@@ -37,7 +37,7 @@ class CliqueFragment : Fragment() {
 
         val textView: TextView = binding.textHome
         homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = click.toString()
+            textView.text = profil.clickjour.toString()
         }
         carteList = profil.getcarteList()
 
@@ -46,8 +46,7 @@ class CliqueFragment : Fragment() {
             profil.argent += 1
             profil.clickjour += 1
             profil.clicktotal += 1
-            click++
-            textView.text = click.toString()
+            textView.text = profil.argent.toString()
             val random = randomINT(0, 1000000000)
             //System.out.println("Random : $random")
             val modulos = listOf(
@@ -112,8 +111,10 @@ class CliqueFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+
         if (carteList.isNotEmpty()) {
             //Carte.saveData(carteList)
         }
+
     }
 }

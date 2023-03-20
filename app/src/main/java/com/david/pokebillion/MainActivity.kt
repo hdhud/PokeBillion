@@ -1,7 +1,11 @@
 package com.david.pokebillion
 
+import android.app.Activity
+import android.app.Application
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -9,18 +13,21 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.david.pokebillion.databinding.ActivityMainBinding
+import com.david.pokebillion.profil.getcarteList
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.io.*
 
 class MainActivity : AppCompatActivity() {
 
+    val context: Context = this
+
     private lateinit var binding: ActivityMainBinding
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         val navView: BottomNavigationView = binding.navView
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
@@ -156,35 +163,31 @@ class MainActivity : AppCompatActivity() {
             carteList.add(Carte(carteArray4, carteArray5, carteArray6, carteArray7, carteArray8, carteArray9))
         }*/
 
+        val sharedPreferences: SharedPreferences = this.getSharedPreferences("profil", Context.MODE_PRIVATE)
+        val argent = sharedPreferences.getInt("argent", 0)
+        val clickjour = sharedPreferences.getInt("click_jour", 0)
+        val clicktotal = sharedPreferences.getInt("click_total", 0)
+        Log.d("MainActivity", "Argent : $argent")
+        Log.d("MainActivity", "Click Jour : $clickjour")
+        Log.d("MainActivity", "Click Total : $clicktotal")
+        profil.argent = argent
+        profil.clickjour = clickjour
+        profil.clicktotal = clicktotal
     }
-
-    fun saveData(data: String) {
-        println("saveData")
-        val fileOutputStream: FileOutputStream
-        try {
-            fileOutputStream = openFileOutput("data.txt", Context.MODE_PRIVATE)
-            fileOutputStream.write(data.toByteArray())
-            fileOutputStream.close()
-        } catch (e: Exception) {
-            e.printStackTrace()
+    
+    override fun onStop() {
+        super.onStop()
+        val carteList = getcarteList()
+        if (carteList.isNotEmpty()) {
+            Carte.saveData(carteList)
         }
-    }
-    fun loadData(): String {
-        val fileInputStream: FileInputStream
-        try {
-            fileInputStream = openFileInput("data.txt")
-            val inputStreamReader = InputStreamReader(fileInputStream)
-            val bufferedReader = BufferedReader(inputStreamReader)
-            val stringBuilder = StringBuilder()
-            var text: String? = null
-            while ({ text = bufferedReader.readLine(); text }() != null) {
-                println(text)
-                stringBuilder.append(text)
-            }
-            return stringBuilder.toString()
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-        return ""
+        val sharedPreferences: SharedPreferences = getSharedPreferences("profil", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.clear()
+        editor.putInt("click_total",profil.clicktotal )
+        editor.putInt("argent", profil.argent)
+        editor.putInt("click_jour", profil.clickjour)
+        editor.apply()
+        editor.commit()
     }
 }
