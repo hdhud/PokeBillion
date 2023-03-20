@@ -6,11 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.david.pokebillion.databinding.FragmentJeuxBinding
 import com.david.pokebillion.jeu1
 import com.david.pokebillion.jeu2
+import com.david.pokebillion.profil
 
 class JeuxFragment : Fragment() {
 
@@ -25,6 +27,8 @@ class JeuxFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        val textargent: TextView = binding.argent
+        textargent.text = "Votre Argent : ${profil.argent.toString()} $"
         val JeuxViewModel =
             ViewModelProvider(this).get(JeuxViewModel::class.java)
 
@@ -33,12 +37,22 @@ class JeuxFragment : Fragment() {
         val button1 = binding.boutonHaut
         val button2 = binding.boutonBas
         button1.setOnClickListener {
-            val intent =  Intent(activity, jeu1::class.java)
-            startActivity(intent)
+            if (profil.argent >=1) {
+                val intent = Intent(activity, jeu1::class.java)
+                startActivity(intent)
+            }
+            else {
+                Toast.makeText(activity, "Vous ne n'avez pas l'argent requis.", Toast.LENGTH_SHORT).show()
+            }
         }
         button2.setOnClickListener {
-            val intent =  Intent(activity, jeu2::class.java)
-            startActivity(intent)
+            if (profil.argent >=500000) {
+                val intent = Intent(activity, jeu2::class.java)
+                startActivity(intent)
+            }
+            else {
+                Toast.makeText(activity, "Vous ne n'avez pas l'argent requis.", Toast.LENGTH_SHORT).show()
+            }
         }
         return root
     }

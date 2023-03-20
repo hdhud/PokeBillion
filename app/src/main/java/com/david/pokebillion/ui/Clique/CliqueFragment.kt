@@ -46,7 +46,7 @@ class CliqueFragment : Fragment() {
             profil.argent += 1
             profil.clickjour += 1
             profil.clicktotal += 1
-            textView.text = profil.argent.toString()
+            textView.text = profil.clickjour.toString()
             val random = randomINT(0, 1000000000)
             //System.out.println("Random : $random")
             val modulos = listOf(
@@ -111,5 +111,10 @@ class CliqueFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+
+        if (carteList.isNotEmpty()) {
+            //Carte.saveData(carteList)
+        }
+
     }
 }

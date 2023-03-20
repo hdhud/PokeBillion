@@ -27,6 +27,9 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
+    override fun onStart() {
+        super.onStart()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,13 +42,11 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications))
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-        val sharedPreferences: SharedPreferences = this.getSharedPreferences("profil", MODE_PRIVATE)
+
+        val sharedPreferences: SharedPreferences = this.getSharedPreferences("profil", Context.MODE_PRIVATE)
         val argent = sharedPreferences.getInt("argent", 0)
         val clickjour = sharedPreferences.getInt("click_jour", 0)
         val clicktotal = sharedPreferences.getInt("click_total", 0)
-        Log.d("MainActivity", "Argent : $argent")
-        Log.d("MainActivity", "Click Jour : $clickjour")
-        Log.d("MainActivity", "Click Total : $clicktotal")
         profil.argent = argent
         profil.clickjour = clickjour
         profil.clicktotal = clicktotal

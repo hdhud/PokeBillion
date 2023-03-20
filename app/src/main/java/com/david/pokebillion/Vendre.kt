@@ -1,6 +1,7 @@
 package com.david.pokebillion
 
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -55,6 +56,10 @@ class Vendre : AppCompatActivity() {
                     carte.nb_carte = carte.nb_carte - vendre.progress
                     val intent = Intent(this, MainActivity::class.java)
                     profil.argent = profil.argent + (vendre.progress*carte.Rarete)
+                    val sharedPreferences: SharedPreferences = getSharedPreferences("profil", MODE_PRIVATE)
+                    val editor = sharedPreferences.edit()
+                    editor.putInt("argent", profil.argent)
+                    editor.apply()
                     println(profil.argent)
                     profil.setcarteList(carte)
                     startActivity(intent)

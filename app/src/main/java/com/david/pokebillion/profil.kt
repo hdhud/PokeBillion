@@ -7,7 +7,7 @@ object profil {
     var argent = 0
     var clickjour = 0
     var clicktotal = 0
-    var carteList: List<Carte> = Carte.getAllCartes().toMutableList()
+    var carteList = Carte.getAllCartes()
 
     fun addargent(nb: Int) {
         argent += nb
