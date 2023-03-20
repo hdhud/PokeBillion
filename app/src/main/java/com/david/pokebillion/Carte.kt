@@ -1,8 +1,14 @@
 package com.david.pokebillion
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.os.Handler
+import android.os.Looper
+import android.widget.ImageView
 import java.io.*
-import com.google.gson.Gson
+import java.util.concurrent.Executors
+
 class Carte (var id: Int, var nom: String, var Rarete: Int,var nb_carte: Int, var Trouver: Boolean, var nb_Total: Int):
     Serializable {
 
@@ -153,6 +159,15 @@ class Carte (var id: Int, var nom: String, var Rarete: Int,var nb_carte: Int, va
             outputStream.writeObject(carteList)
             outputStream.close()
             println("Saving Cartes")
+        }
+        fun imagepokemon (carte: Carte): Bitmap? {
+            val executor = Executors.newSingleThreadExecutor()
+            var image: Bitmap? = null
+            val imageurl = "https://images.pokemontcg.io/base1/${carte.id}.png"
+            val input = java.net.URL(imageurl).openStream()
+            image = BitmapFactory.decodeStream(input)
+
+            return image
         }
     }
 }

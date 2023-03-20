@@ -32,7 +32,6 @@ class CartesFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View {
         println(context?.filesDir?.absolutePath)
-        carteList = profil.getcarteList()
         val notificationsViewModel =
                 ViewModelProvider(this).get(CartesViewModel::class.java)
 
@@ -42,6 +41,7 @@ class CartesFragment : Fragment() {
         val handler = Handler()
         handler.postDelayed({
             carteList = profil.getcarteList()
+            carteList = carteList.sortedBy { it.Rarete }
             binding.cartelist.adapter = CarteListAdapter(requireContext(),carteList)
 
             (binding.cartelist.adapter as CarteListAdapter).notifyDataSetChanged()

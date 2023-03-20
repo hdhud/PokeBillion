@@ -16,6 +16,10 @@ import com.david.pokebillion.databinding.ActivityMainBinding
 import com.david.pokebillion.profil.getcarteList
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.io.*
+// import pokemontcg api
+
+
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -35,7 +39,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications))
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-        val sharedPreferences: SharedPreferences = this.getSharedPreferences("profil", Context.MODE_PRIVATE)
+        val sharedPreferences: SharedPreferences = this.getSharedPreferences("profil", MODE_PRIVATE)
         val argent = sharedPreferences.getInt("argent", 0)
         val clickjour = sharedPreferences.getInt("click_jour", 0)
         val clicktotal = sharedPreferences.getInt("click_total", 0)
@@ -45,6 +49,7 @@ class MainActivity : AppCompatActivity() {
         profil.argent = argent
         profil.clickjour = clickjour
         profil.clicktotal = clicktotal
+
     }
     
     override fun onStop() {
@@ -53,7 +58,7 @@ class MainActivity : AppCompatActivity() {
         if (carteList.isNotEmpty()) {
             Carte.saveData(carteList)
         }
-        val sharedPreferences: SharedPreferences = getSharedPreferences("profil", Context.MODE_PRIVATE)
+        val sharedPreferences: SharedPreferences = getSharedPreferences("profil", MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.clear()
         editor.putInt("click_total",profil.clicktotal )
