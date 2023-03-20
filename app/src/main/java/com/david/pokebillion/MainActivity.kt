@@ -33,8 +33,6 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        val file = File("/data/user/0/com.david.pokebillion/files/data.txt")
-        if (!file.exists()) {
             val carteList = listOf<Carte>(
                 Carte(1, "Alakazam", 100000000, 1, false,0),
                 Carte(2, "Tortank", 1000000000, 0, false,0),
@@ -140,9 +138,10 @@ class MainActivity : AppCompatActivity() {
                 Carte(102, "Énergie Eau", 250, 0, false,0)
             )
             println("createfile")
-            Carte.saveData(carteList)
-        }
+            //Carte.saveData(carteList)
 
+        //Carte.chargerCartes()
+        //Carte.sauvegarderCartes(carteList)
         /*val carteArray = loadData()
         val carteArray2 = carteArray.split("Carte(")
         for (i in 1..carteArray2.size-1) {

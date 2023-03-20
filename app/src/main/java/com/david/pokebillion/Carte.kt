@@ -1,12 +1,18 @@
 package com.david.pokebillion
 
 import java.io.*
+import com.google.gson.Gson
 class Carte (var id: Int, var nom: String, var Rarete: Int,var nb_carte: Int, var Trouver: Boolean, var nb_Total: Int):
     Serializable {
+    @JvmName("getRarete1")
+    fun getRarete():Int{
+        return this.Rarete
+    }
 
     override fun toString(): String {
         return "Carte(id=$id, nom='$nom', Rarete=$Rarete, nb_carte=$nb_carte, Trouver=$Trouver, nb_Total=$nb_Total)"
     }
+
 
 
     fun vendretous(){
@@ -24,7 +30,7 @@ class Carte (var id: Int, var nom: String, var Rarete: Int,var nb_carte: Int, va
 
         fun getAllCartes(): List<Carte> {
             val carteList = mutableListOf<Carte>()
-            val file = File("/data/user/0/com.david.pokebillion/files/data.txt")
+            val file = File("data.txt")
             if (file.exists()) {
                 val fileInputStream = FileInputStream(file)
                 val inputStream = ObjectInputStream(fileInputStream)
@@ -43,7 +49,21 @@ class Carte (var id: Int, var nom: String, var Rarete: Int,var nb_carte: Int, va
             outputStream.close()
             println("Saving")
         }
+        fun chargerCartes(): List<Carte> {
+            val gson = Gson()
+            val fichier = File("carte.json")
+            val contenu = fichier.readText()
+            println(contenu)
+            return gson.fromJson(contenu, Array<Carte>::class.java).toList()
+        }
+
+        // Fonction pour enregistrer les cartes dans un fichier
+        fun sauvegarderCartes(cartes: List<Carte>) {
+            val gson = Gson()
+            val fichier = File("/src/main/java/com.david.pokebillion/Carte.json")
+            val contenu = gson.toJson(cartes)
+            println(contenu)
+            fichier.writeText(contenu)
+        }
     }
-
-
 }

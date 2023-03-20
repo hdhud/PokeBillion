@@ -113,7 +113,7 @@ class CliqueFragment : Fragment() {
         super.onDestroyView()
         _binding = null
         if (carteList.isNotEmpty()) {
-            Carte.saveData(carteList)
+            //Carte.saveData(carteList)
         }
     }
 }

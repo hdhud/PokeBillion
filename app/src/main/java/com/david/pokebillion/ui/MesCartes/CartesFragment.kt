@@ -32,7 +32,20 @@ class CartesFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View {
         println(context?.filesDir?.absolutePath)
-        carteList = profil.getcarteList()
+        var carteListGlobal = profil.getcarteList()
+        //recupere les cartes depuis carteListGlobal qui on un au compteur au moins
+        var carteList = ArrayList<Carte>()
+        for (carte in carteListGlobal){
+            if (carte.nb_carte > 0){
+                carteList.add(carte)
+            }
+        }
+        // puis ajoute les cartes qui n'ont pas de compteur
+        for (carte in carteListGlobal){
+            if (carte.nb_carte == 0){
+                carteList.add(carte)
+            }
+        }
         val notificationsViewModel =
                 ViewModelProvider(this).get(CartesViewModel::class.java)
 
@@ -41,7 +54,6 @@ class CartesFragment : Fragment() {
 
         val handler = Handler()
         handler.postDelayed({
-            carteList = profil.getcarteList()
             binding.cartelist.adapter = CarteListAdapter(requireContext(),carteList)
 
             (binding.cartelist.adapter as CarteListAdapter).notifyDataSetChanged()
