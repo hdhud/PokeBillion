@@ -36,6 +36,8 @@ class jeu2 : AppCompatActivity() {
     var validerImage9 = true
     var tab_cartes = mutableListOf<Carte>()
     var tab_cartes_Gagne = mutableListOf<Carte>()
+    // recupere la carte avec l'id 4
+
     fun obtenirCarte(nombreDeClique: Int): List<Int> {
         val meilleursModulos = mutableListOf<Int>()
         val modulos = listOf(
@@ -354,6 +356,7 @@ class jeu2 : AppCompatActivity() {
         // Récupérer l'argent disponible dans le singleton Profil
         val argentDisponible = profil.argent
 
+
         // Créer un curseur (slider) avec une plage de valeurs entre 0 et l'argent disponible
         val curseurArgent = findViewById<SeekBar>(R.id.curseur_argent)
         val curseurvaleur = findViewById<EditText>(R.id.editTextNumber)
@@ -393,50 +396,52 @@ class jeu2 : AppCompatActivity() {
         // Définir une action à effectuer lorsque l'utilisateur clique sur le bouton "Jouer"
         val boutonJouer = findViewById<Button>(R.id.bouton_jouer)
         boutonJouer.setOnClickListener {
-            validerImage1 = true
-            validerImage2 = true
-            validerImage3 = true
-            validerImage4 = true
-            validerImage5 = true
-            validerImage6 = true
-            validerImage7 = true
-            validerImage8 = true
-            validerImage9 = true
-            nombreImageClique = 0
-            valider = true
-            tab_cartes.clear()
-            tab_cartes_Gagne.clear()
-            img1.setImageResource(R.drawable.img)
-            img2.setImageResource(R.drawable.img)
-            img3.setImageResource(R.drawable.img)
-            img4.setImageResource(R.drawable.img)
-            img5.setImageResource(R.drawable.img)
-            img6.setImageResource(R.drawable.img)
-            img7.setImageResource(R.drawable.img)
-            img8.setImageResource(R.drawable.img)
-            img9.setImageResource(R.drawable.img)
-            Toast.makeText(this, "Choisissez 3 cartes.", Toast.LENGTH_SHORT).show()
+            if (profil.argent>500000) {
+                validerImage1 = true
+                validerImage2 = true
+                validerImage3 = true
+                validerImage4 = true
+                validerImage5 = true
+                validerImage6 = true
+                validerImage7 = true
+                validerImage8 = true
+                validerImage9 = true
+                nombreImageClique = 0
+                valider = true
+                tab_cartes.clear()
+                tab_cartes_Gagne.clear()
+                img1.setImageResource(R.drawable.img)
+                img2.setImageResource(R.drawable.img)
+                img3.setImageResource(R.drawable.img)
+                img4.setImageResource(R.drawable.img)
+                img5.setImageResource(R.drawable.img)
+                img6.setImageResource(R.drawable.img)
+                img7.setImageResource(R.drawable.img)
+                img8.setImageResource(R.drawable.img)
+                img9.setImageResource(R.drawable.img)
+                Toast.makeText(this, "Choisissez 3 cartes.", Toast.LENGTH_SHORT).show()
 
-            // Récupérer la somme d'argent choisie par l'utilisateur à partir du curseur
-            val sommeArgent = curseurArgent.progress
+                // Récupérer la somme d'argent choisie par l'utilisateur à partir du curseur
+                val sommeArgent = curseurArgent.progress
 
-            // Simuler le nombre de cliques en utilisant la somme d'argent choisie
-            val nombreCliques = (sommeArgent/1000).toInt()
+                // Simuler le nombre de cliques en utilisant la somme d'argent choisie
+                val nombreCliques = (sommeArgent / 1000).toInt()
 
-            // Obtenir la carte correspondante en utilisant le nombre de cliques
-            var tab_rarete = obtenirCarte(nombreCliques)
-            //renvoie rarete
+                // Obtenir la carte correspondante en utilisant le nombre de cliques
+                var tab_rarete = obtenirCarte(nombreCliques)
+                //renvoie rarete
 
-            for (i in tab_rarete){
-                var ca = randomCard(i)
-                tab_cartes.add(ca)
+                for (i in tab_rarete) {
+                    var ca = randomCard(i)
+                    tab_cartes.add(ca)
+                }
+                profil.argent -= sommeArgent
+                val sharedPreferences: SharedPreferences =
+                    getSharedPreferences("profil", MODE_PRIVATE)
+                val editor = sharedPreferences.edit()
+                editor.putInt("argent", profil.argent)
+                editor.apply()
             }
-            profil.argent -= sommeArgent
-            val sharedPreferences: SharedPreferences = getSharedPreferences("profil", MODE_PRIVATE)
-            val editor = sharedPreferences.edit()
-            editor.putInt("argent", profil.argent)
-            editor.apply()
-
         }
 
     }

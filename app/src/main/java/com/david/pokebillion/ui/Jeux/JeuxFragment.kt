@@ -27,12 +27,14 @@ class JeuxFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        _binding = FragmentJeuxBinding.inflate(inflater, container, false)
         val textargent: TextView = binding.argent
         textargent.text = "Votre Argent : ${profil.argent.toString()} $"
+
         val JeuxViewModel =
             ViewModelProvider(this).get(JeuxViewModel::class.java)
 
-        _binding = FragmentJeuxBinding.inflate(inflater, container, false)
+
         val root: View = binding.root
         val button1 = binding.boutonHaut
         val button2 = binding.boutonBas

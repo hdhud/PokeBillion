@@ -1,5 +1,6 @@
 package com.david.pokebillion
 
+import android.content.SharedPreferences
 import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -150,6 +151,11 @@ class jeu1 : AppCompatActivity() {
             // Récupérer la somme d'argent choisie par l'utilisateur à partir du curseur
             val sommeArgent = curseurArgent.progress
             profil.argent -= sommeArgent
+            val sharedPreferences: SharedPreferences = getSharedPreferences("profil", MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+            editor.putInt("argent", profil.argent)
+            editor.apply()
+
 
             // Simuler le nombre de cliques en utilisant la somme d'argent choisie
             val nombreCliques = (sommeArgent *0.75).toInt()
@@ -164,7 +170,12 @@ class jeu1 : AppCompatActivity() {
                     "Vous n'avez pas obtenu de carte, vous recevez donc la moitié de votre argent.",
                     Toast.LENGTH_SHORT
                 ).show()
-                profil.argent += sommeArgent / 2
+                profil.argent += (sommeArgent / 2).toInt()
+                val sharedPreferences: SharedPreferences = getSharedPreferences("profil", MODE_PRIVATE)
+                val editor = sharedPreferences.edit()
+                editor.putInt("argent", profil.argent)
+                editor.apply()
+
             }
             else{
                 clickable = true
@@ -173,25 +184,27 @@ class jeu1 : AppCompatActivity() {
             }
             image_egg.setOnClickListener()
             {
-                if (clickable == true) {
-                    val executor = Executors.newSingleThreadExecutor()
-                    val handler = Handler(Looper.getMainLooper())
-                    var image: Bitmap? = null
-                    executor.execute {
-                        try {
-                            image = Carte.imagepokemon(carteFinal)
-                            handler.post {
-                                image_egg.setImageBitmap(image)
+                if(profil.argent>0){
+                    if (clickable == true) {
+                        val executor = Executors.newSingleThreadExecutor()
+                        val handler = Handler(Looper.getMainLooper())
+                        var image: Bitmap? = null
+                        executor.execute {
+                            try {
+                                image = Carte.imagepokemon(carteFinal)
+                                handler.post {
+                                    image_egg.setImageBitmap(image)
+                                }
+                            } catch (e: Exception) {
+                                e.printStackTrace()
                             }
-                        } catch (e: Exception) {
-                            e.printStackTrace()
                         }
+                        afficherCarte(carteFinal)
+                        carteFinal.nb_carte += 1
+                        carteFinal.nb_Total += 1
+                        setcarteList(carteFinal)
+                        clickable = false
                     }
-                    afficherCarte(carteFinal)
-                    carteFinal.nb_carte += 1
-                    carteFinal.nb_Total += 1
-                    setcarteList(carteFinal)
-                    clickable = false
                 }
             }
         }
